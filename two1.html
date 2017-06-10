@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Two.js</title>
+</head>
+<body>
+<!-- 一、介绍 -->
+<!-- TWO.js扁平化2D绘图API插件 -->
+<!-- 目的:使创作和动画的平面形状更容易更简洁 -->
+<!-- 二、页面布局 -->
+<div id="main"></div>
+<!-- 三、引入插件 -->
+<script type="text/javascript" src="plugin/two.min.js"></script>
+<!-- 四、开始绘制 -->
+<script type="text/javascript">
+// 4.1获取id
+	var elem = document.getElementById('main');
+// 4.2创建实例放在页面上
+	// var params = { width: 285, height: 200 };
+    // var two = new Two(params).appendTo(elem);
+// 4.2.1把绘制出来的图像通过appendto函数放到选择器里
+	var two=new Two({width:400,height:400}).appendTo(elem);
+
+// 4.3画有色圆
+// 4.3.1makeCircle方法绘制圆
+	// var circle = two.makeCircle(110, 110, 100); 
+// 4.3.2fill属性填充颜色
+	// circle.fill = "#881111";  
+// 通过update更新画布内容
+	// two.update();
+
+// 4.4画有色矩形
+// 4.4.1makeRectangle方法有四个参数，前面两个分别是矩形中心的X与Y轴坐标，接下来两个参数分别是宽和高
+	// var rect = two.makeRectangle(115, 90, 150, 100);   
+	// rect.fill = "orange";   
+	// rect.opacity = 0.25;
+	// 通过noStroke方法移除border(边框)
+	// rect.noStroke();    
+	// two.update();
+
+//4.5 绘制椭圆
+// makeEllipse方法有四个参数，前面两个分别是矩形中心的X与Y轴坐标，接下来两个参数分别是宽和高
+	// var ellipse = two.makeEllipse(100, 40, 90, 30);
+// 通过stroke属性设置border(边框)的颜色，linewidth设置边栏大小，最后通过noFill方法掏空椭圆（留下边框）  
+	// ellipse.stroke = "#112233";   
+	// ellipse.linewidth = 5;   
+	// ellipse.noFill();    
+	// two.update(); 
+
+// 4.6绘制斜直线
+// makeLine方法，一共是有4个参数。参数分成两部分，前两个参数是直线起点的X和Y轴坐标，后面两个就是直线末点的X和Y轴坐标
+	// var line = two.makeLine(10, 10, 110, 210);   
+	// line.linewidth = 10;   
+	// line.stroke = "rgba(255, 0, 0, 0.5)";
+	// two.update();
+
+//4.7绘制曲线
+//makeCurve方法，首先，我们需要把前12个两个两个一组，分别是起点、末点或者弯曲点的X与Y轴坐标。最后一个参数决定起点和末点是否连接，设置成false可以连接的哦
+	var curve = two.makeCurve(110, 100, 120, 50, 140, 150, 160, 50, 180, 150, 190, 100, true);   
+	curve.linewidth = 2;   
+	curve.scale = 1.75;   
+	curve.rotation = Math.PI / 2;   
+	curve.noFill(); 
+	two.update();
+
+//4.8 bind方法，绑定监听事件，每次触发update 
+	var two = new Two({
+		// 全屏,默认宽度为640像素为单位，默认高度为480px/
+        fullscreen: true,
+        // 自动启动
+        autostart: true
+      }).appendTo(document.body);
+    var rect = two.makeRectangle(two.width/2, two.height/2, 150 ,150);
+    rect.fill = 'rgb(0, 200, 255)';
+      two.bind('update', function() {
+        rect.rotation += 0.01;
+        // rect.scale+=0.01;
+      }).play();
+</script>
+</body>
+</html>

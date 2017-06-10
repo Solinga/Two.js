@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="plugin/two.min.js"></script>
+  </head>
+  <body>
+   <div id="draw-shapes"></div>   
+    <script>
+      // 创建两个实例并将其放在页面上
+      var elem = document.getElementById('draw-shapes');
+      // var params = { width: 285, height: 200 };
+      // var two = new Two(params).appendTo(elem);
+
+      var two=new Two({width:285,height:200}).appendTo(elem);
+
+      // 两个方便的方法创建形状
+      // var circle = two.makeCircle(72, 100, 50);
+      // var rect = two.makeRectangle(213, 100, 100, 100);
+
+      var circle=two.makeCircle(-70,0,50);
+      var rect=two.makeRectangle(70,0,100,100);
+
+
+      // 返回的对象有很多可定制的属性
+      circle.fill = '#FF8000';
+      // circle.stroke = 'orangered'; // Accepts all valid css color
+      // circle.linewidth = 5;
+
+      rect.fill = 'rgb(0, 200, 255)';
+      // rect.opacity = 0.75;
+      // rect.stroke='#1c75bc';
+      // rect.noStroke();
+// 分组可以采用一组或者多组
+      var group=two.makeGroup(circle,rect);
+
+      group.translation.set(two.width/2,two.height/2);
+      // group.rotation=Math.PI;
+      // group.scale=0.75;
+      group.scale=0;
+      group.noStroke;
+// 可以设置形状具有相同属性
+      // group.linewidth=7;
+
+      // two.update()方法，将内容绘制到屏幕上
+      // two.update();
+
+      // bind方法,监听每次触发update
+      two.bind('update',function(frameCount){
+        if(group.scale>0.9999){
+          group.scale=group.rotation=0;
+        }
+        var t=(1-group.scale)*0.125;
+        group.scale+=t;
+        group.rotation+=t*4*Math.PI;
+
+      }).play();
+    </script>
+  </body>
+</html>
